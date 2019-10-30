@@ -1,0 +1,13 @@
+#Ignore files for git commits
+
+#Intellij related
+.idea/
+
+#Eclipse related
+.settings/
+.factorypath
+.apt_generated
+.apt_generated_tests
+
+#Maven build related
+target/
