@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -15,16 +16,17 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@Configuration
-@EnableTransactionManagement
-@ComponentScan(basePackages = "com.bitnationcode.topflies.model")
-@PropertySource(value = "classpath:application.properties")
+//@Configuration
+//@EnableTransactionManagement
+//@EnableJpaRepositories(basePackages = "com.bitnationcode.topflies.model", entityManagerFactoryRef = "", transactionManagerRef = "")
+//@ComponentScan(basePackages = "com.bitnationcode.topflies.model")
+//@PropertySource(value = "classpath:application.properties")
 public class DataSourceConfig {
 
-    @Autowired
+    //@Autowired
     private Environment environment;
 
-    @Bean
+    //@Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
@@ -41,7 +43,7 @@ public class DataSourceConfig {
         return properties;
     }
 
-    @Bean
+   // @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
@@ -51,8 +53,8 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    @Bean
-    @Autowired
+   // @Bean
+    //@Autowired
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(sessionFactory);
