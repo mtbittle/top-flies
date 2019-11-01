@@ -1,4 +1,4 @@
-package com.bitnationcode.web.controller;
+package com.bitnationcode.topflies.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

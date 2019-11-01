@@ -1,4 +1,4 @@
-package com.bitnationcode.web.controller.home;
+package com.bitnationcode.topflies.controller.home;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
