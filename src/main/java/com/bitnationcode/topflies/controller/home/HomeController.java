@@ -3,7 +3,6 @@ package com.bitnationcode.topflies.controller.home;
 import com.bitnationcode.topflies.model.Fly;
 import com.bitnationcode.topflies.model.FlyType;
 import com.bitnationcode.topflies.model.Season;
-import com.bitnationcode.topflies.repository.FlyIdAndName;
 import com.bitnationcode.topflies.service.IFlyService;
 import com.bitnationcode.topflies.service.ISeasonService;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,7 +51,7 @@ public class HomeController {
      * @param request
      * @return
      */
-    @PostMapping("/search")
+    @PostMapping("/")
     public ModelAndView search(@ModelAttribute("searchForm") SearchForm form, BindingResult result, HttpServletRequest request) {
         //TODO use query params to filter search results
 
@@ -75,11 +73,6 @@ public class HomeController {
     @ModelAttribute("seasonList")
     public List<Season> getSeasonList() {
         return seasonService.getAllSeasons();
-    }
-
-    @ModelAttribute("flyNameList")
-    public List<FlyIdAndName> getFlyNames() {
-        return flyService.getFlyIdAndNames();
     }
 
     @ModelAttribute("flyTypeList")
