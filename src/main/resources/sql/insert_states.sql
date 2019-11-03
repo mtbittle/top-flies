@@ -1,0 +1,1 @@
+INSERT INTO topflies.state values(abbreviation, name, country_id, version)

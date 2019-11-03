@@ -1,5 +1,7 @@
 package com.bitnationcode.topflies.model;
 
+import com.bitnationcode.topflies.model.base.BaseModel;
+import com.bitnationcode.topflies.model.base.IPersistent;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,8 +13,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "User")
-@EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User extends BaseModel implements IPersistent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,16 +27,6 @@ public class User {
 
     @NotBlank
     private String encryptedPassword;
-
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdDate;
-
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedDate;
 
     public long getId() {
         return id;
@@ -67,21 +58,5 @@ public class User {
 
     public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
     }
 }

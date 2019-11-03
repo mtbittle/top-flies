@@ -1,5 +1,7 @@
 package com.bitnationcode.topflies.model;
 
+import com.bitnationcode.topflies.model.base.BaseModel;
+import com.bitnationcode.topflies.model.base.IPersistent;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -8,12 +10,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "GeographicArea")
-@EntityListeners(AuditingEntityListener.class)
-public class GeographicArea {
+public class GeographicArea extends BaseModel implements IPersistent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,17 +27,19 @@ public class GeographicArea {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdDate;
+    @ManyToMany(mappedBy = "geographicAreas")
+    private Set<Fly> flies = new HashSet<>();
 
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedDate;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "riverId", cascade = { CascadeType.ALL}, orphanRemoval = true)
+    private List<River> riverList;
 
-    public long getId() {
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "insectId", cascade = { CascadeType.ALL}, orphanRemoval = true)
+    private List<Insect> insectList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seasonId", cascade = { CascadeType.ALL}, orphanRemoval = true)
+    private List<Season> seasonList;
+
+    public long getGeographicAreaId() {
         return geographicAreaId;
     }
 
@@ -50,19 +55,35 @@ public class GeographicArea {
         this.name = name;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Set<Fly> getFlies() {
+        return flies;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setFlies(Set<Fly> flies) {
+        this.flies = flies;
     }
 
-    public Date getUpdatedDate() {
-        return updatedDate;
+    public List<River> getRiverList() {
+        return riverList;
     }
 
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setRiverList(List<River> riverList) {
+        this.riverList = riverList;
+    }
+
+    public List<Insect> getInsectList() {
+        return insectList;
+    }
+
+    public void setInsectList(List<Insect> insectList) {
+        this.insectList = insectList;
+    }
+
+    public List<Season> getSeasonList() {
+        return seasonList;
+    }
+
+    public void setSeasonList(List<Season> seasonList) {
+        this.seasonList = seasonList;
     }
 }

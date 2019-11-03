@@ -2,38 +2,46 @@ package com.bitnationcode.topflies.model;
 
 import com.bitnationcode.topflies.model.base.BaseModel;
 import com.bitnationcode.topflies.model.base.IPersistent;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * @author Michael
+ * @date 11/3/2019
+ **/
 @Entity
-@Table(name = "Insect")
-public class Insect extends BaseModel implements IPersistent {
+@Table(name = "Season")
+public class Season extends BaseModel implements IPersistent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "insectId", nullable = false)
-    private long insectId;
+    @Column(name = "seasonId", nullable = false)
+    private long seasonId;
 
     @NotBlank
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, targetEntity = Fly.class)
-    @JoinColumn(name = "flyId")
-    private Fly fly;
+    @ManyToMany(mappedBy = "seasons")
+    private Set<Fly> flies = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "geographicAreaId", nullable = false)
     private GeographicArea geographicArea;
 
-    public long getInsectId() {
-        return insectId;
+    public long getSeasonId() {
+        return seasonId;
     }
 
-    public void setInsectId(long insectId) {
-        this.insectId = insectId;
+    public void setSeasonId(long seasonId) {
+        this.seasonId = seasonId;
     }
 
     public String getName() {
@@ -44,12 +52,12 @@ public class Insect extends BaseModel implements IPersistent {
         this.name = name;
     }
 
-    public Fly getFly() {
-        return fly;
+    public Set<Fly> getFlies() {
+        return flies;
     }
 
-    public void setFly(Fly fly) {
-        this.fly = fly;
+    public void setFlies(Set<Fly> flies) {
+        this.flies = flies;
     }
 
     public GeographicArea getGeographicArea() {

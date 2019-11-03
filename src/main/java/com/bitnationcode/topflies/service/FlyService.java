@@ -2,7 +2,11 @@ package com.bitnationcode.topflies.service;
 
 import com.bitnationcode.topflies.exceptions.ResourceNotFoundException;
 import com.bitnationcode.topflies.model.Fly;
+import com.bitnationcode.topflies.model.FlyType;
+import com.bitnationcode.topflies.repository.FlyIdAndName;
 import com.bitnationcode.topflies.repository.IFlyRepository;
+import com.bitnationcode.topflies.repository.IFlyTypeRepository;
+import org.reflections.vfs.Vfs;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -15,13 +19,15 @@ import java.util.List;
 public class FlyService implements IFlyService {
 
     private IFlyRepository flyRepository;
+    private IFlyTypeRepository flyTypeRepository;
 
-    public FlyService(IFlyRepository flyRepository) {
+    public FlyService(IFlyRepository flyRepository, IFlyTypeRepository flyTypeRepository) {
         this.flyRepository = flyRepository;
+        this.flyTypeRepository = flyTypeRepository;
     }
 
     @Override
-    public List<Fly> getFlies() {
+    public List<Fly> getAllFlies() {
         return flyRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
@@ -54,5 +60,15 @@ public class FlyService implements IFlyService {
                 .orElseThrow(() -> new ResourceNotFoundException("Fly", "id", flyId));
 
         flyRepository.delete(existingFly);
+    }
+
+    @Override
+    public List<FlyIdAndName> getFlyIdAndNames() {
+        return flyRepository.findAllProjectedBy();
+    }
+
+    @Override
+    public List<FlyType> getAllFlyTypes() {
+        return flyTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 }

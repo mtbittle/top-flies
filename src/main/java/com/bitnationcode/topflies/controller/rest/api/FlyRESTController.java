@@ -1,4 +1,4 @@
-package com.bitnationcode.topflies.controller;
+package com.bitnationcode.topflies.controller.rest.api;
 
 import com.bitnationcode.topflies.exceptions.ResourceNotFoundException;
 import com.bitnationcode.topflies.model.Fly;
@@ -11,17 +11,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class FlyController {
+public class FlyRESTController {
 
     private IFlyService flyService;
 
-    public FlyController(IFlyService flyService) {
+    public FlyRESTController(IFlyService flyService) {
         this.flyService = flyService;
     }
 
     @GetMapping("/flies")
     public List<Fly> getAllFlies() {
-        return flyService.getFlies();
+        return flyService.getAllFlies();
     }
 
     @PostMapping("/flies")

@@ -1,23 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base/layout}"
+      th:with="pageTitle='Top Flies'">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Top Flies</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md">
-                <h1>Hello, world!</h1>
+    <div layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md">
+                    <h2>Some message text</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <p>some paragraph text here</p>
+                </div>
+            </div>
+            <!-- search criteria for filtering list of flies -->
+            <form id="searchForm" th:action="@{/search}" th:object="${searchForm}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Filter Selections</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-group">
+                            <div class="panel-heading">
+                                <h4>Stuff</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <label for="seasonsList">Choose Season:</label>
+                                    <div class="col-md-3">
+                                        <select class="select-picker" id="seasonsList" th:field="*{season}">
+                                            <option value="">Select</option>
+                                            <option th:each="season : ${seasonList}"
+                                                    th:value="${season.id}"
+                                                    th:text="${season.description}">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="seasonsList">Choose Fly Type:</label>
+                                    <div class="col-md-3">
+                                        <select class="select-picker" id="flyTypeList" th:field="*{flyType}">
+                                            <option value="">Select</option>
+                                            <option th:each="fly : ${flyTypeList}"
+                                                    th:value="${fly.id}"
+                                                    th:text="${fly.description}">Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- search results -->
+            <div>
+                <div class="panel panel-default" th:unless="${#lists.isEmpty(fliesSearchResults)}">
+                    <div class="panel-heading">
+                        <h3>Flies</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div th:replace="base/fliesSearchResults :: pageLink_href ('/home')"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
