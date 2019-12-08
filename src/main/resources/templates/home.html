@@ -1,23 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base/layout}"
+      th:with="pageTitle='Top Flies'">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Top Flies</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md">
-                <h1>Hello, world!</h1>
+    <div layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md">
+                    <h2>Some message text</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <p>some paragraph text here</p>
+                </div>
+            </div>
+            <!-- search criteria for filtering list of flies -->
+            <div class="panel panel-default">
+                <form id="searchForm" th:action="@{/}" th:object="${searchForm}" method="post">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Filter Selections</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="panel-heading">
+                                    <h4>Stuff</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="seasonsList" th:field="*{season}">
+                                                <option value="">Season</option>
+                                                <option th:each="season : ${seasonList}"
+                                                        th:value="${season.seasonId}"
+                                                        th:text="${season.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="flyTypeList" th:field="*{flyType}">
+                                                <option value="">Fly</option>
+                                                <option th:each="fly : ${flyTypeList}"
+                                                        th:value="${fly.flyTypeId}"
+                                                        th:text="${fly.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="stateList" th:field="*{state}">
+                                                <option value="">State</option>
+                                                <option th:each="state : ${stateList}"
+                                                        th:value="${state.abbreviation}"
+                                                        th:text="${state.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="regionList" th:field="*{region}">
+                                                <option value="">Region</option>
+                                                <option th:each="region : ${regionList}"
+                                                        th:value="${region.regionId}"
+                                                        th:text="${region.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="riverList" th:field="*{river}">
+                                                <option value="">River</option>
+                                                <option th:each="river : ${riverList}"
+                                                        th:value="${river.riverId}"
+                                                        th:text="${river.name}">Select</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+            <!-- search results -->
+            <div class="panel panel-default" th:unless="${#lists.isEmpty(fliesSearchResults)}">
+                <div class="panel-heading">
+                    <h3>Flies</h3>
+                </div>
+                <div class="panel-body">
+                    <div th:replace="base/fliesSearchResults :: searchResults"></div>
+                </div>
             </div>
         </div>
     </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

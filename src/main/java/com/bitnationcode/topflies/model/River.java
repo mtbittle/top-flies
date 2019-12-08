@@ -6,24 +6,30 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ *
+ * @author Michael
+ * @date 11/3/2019
+ **/
 @Data
 @Entity
-@Table(name = "Insect")
-public class Insect extends BaseModel implements IPersistent {
+@Table(name = "River")
+public class River extends BaseModel implements IPersistent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "insectId", nullable = false)
-    private long insectId;
+    @Column(name = "riverId", nullable = false)
+    private long riverId;
 
     @NotBlank
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false, targetEntity = Fly.class)
-    @JoinColumn(name = "flyId")
-    private Fly fly;
+    @ManyToMany(mappedBy = "rivers")
+    private Set<Fly> flies = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "regionId", nullable = false)

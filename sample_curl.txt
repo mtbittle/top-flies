@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" --request POST -d '{"name": "Test", "flyType": "1", "insectStage": "Adult", "imageUrl": "wooly-bugger.jpg"}'
