@@ -10,9 +10,7 @@ import java.util.List;
  **/
 public interface IStateService {
 
-    List<State> findAllStates();
+    List<State> getAllStates();
 
     State saveState(State state);
-
-    List<State> findAllStatesByCountry(String countryAbbreviation);
 }

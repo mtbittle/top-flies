@@ -1,0 +1,37 @@
+<div th:fragment="searchResults" class="" th:id="searchResults" th:unless="${#lists.isEmpty(fliesSearchResults)}" xmlns:th="http://www.thymeleaf.org">
+    <div class="col-md-12">
+        <div class="fade-in fade-out">
+            <!--<div th:insert="/base/paginationBar :: paginationBar"></div>-->
+            <div class="row text-center text-lg-left">
+                <div th:each="fly, rowStat : ${fliesSearchResults}">
+                    <div class="col-md mx-3 my-3">
+                        <a th:href="@{flies/{id}(id=${fly.flyId})}" class="">
+                            <img class="img-fluid img-thumbnail" th:src="@{${fly.imageUrl}}" th:alt="${fly.description}">
+                        </a>
+                        <div th:text="${fly.name}"></div>
+                    </div>
+                </div>
+
+            </div>
+            <!--<table class="table table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <div th:each="fly, rowStat : ${fliesSearchResults}">
+                        <tr th:style="${rowStat.odd} ? 'background-color: #f5f5f5f5'">
+                            <td class="border-none" th:text="${fly.name}">Some text</td>
+                            <td class="border-none" th:text="${fly.description}">Some text</td>
+                            &lt;!&ndash;<td class="border-none" th:text="${fly.imageUrl}">Some text</td>&ndash;&gt;
+                            <td><img th:src="@{${fly.imageUrl}}" class="img-thumbnail"></td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>-->
+        </div>
+    </div>
+</div>

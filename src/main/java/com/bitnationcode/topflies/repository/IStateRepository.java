@@ -12,6 +12,4 @@ import java.util.List;
  **/
 public interface IStateRepository extends JpaRepository<State, Long> {
 
-    List<State> findAllByCountryAbbreviation(String abbreviation, Sort sort);
-
 }

@@ -1,13 +1,18 @@
 package com.bitnationcode.topflies.service;
 
+import com.bitnationcode.topflies.controller.home.SearchForm;
 import com.bitnationcode.topflies.exceptions.ResourceNotFoundException;
 import com.bitnationcode.topflies.model.Fly;
 import com.bitnationcode.topflies.model.FlyType;
+import com.bitnationcode.topflies.querydsl.FlyPredicateBuilder;
 import com.bitnationcode.topflies.repository.FlyIdAndName;
 import com.bitnationcode.topflies.repository.IFlyRepository;
 import com.bitnationcode.topflies.repository.IFlyTypeRepository;
 import org.reflections.vfs.Vfs;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,5 +75,10 @@ public class FlyService implements IFlyService {
     @Override
     public List<FlyType> getAllFlyTypes() {
         return flyTypeRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+    }
+
+    @Override
+    public Page<Fly> findBySearchParams(SearchForm form, Pageable pageable) {
+        return flyRepository.findAll(FlyPredicateBuilder.build(form), pageable);
     }
 }

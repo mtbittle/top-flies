@@ -27,6 +27,6 @@ public class FlyType extends BaseModel implements IPersistent {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "flyType", cascade = { CascadeType.ALL}, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flyType", cascade = { CascadeType.ALL}, orphanRemoval = true)
     private List<Fly> flyList;
 }

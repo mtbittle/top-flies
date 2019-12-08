@@ -16,11 +16,8 @@ public class Fly extends BaseModel implements IPersistent {
 
     /*
     Additional information at some point:
-    1. season to fish
-    2. best types of fish
-    3. dry/wet fly
-    4. how to fish
-    5. how to tie
+     1. materials list
+
      */
 
     @Id
@@ -56,12 +53,12 @@ public class Fly extends BaseModel implements IPersistent {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "fly_geographicarea",
+    @JoinTable(name = "fly_region",
             joinColumns = @JoinColumn(name = "fly_id"),
-            inverseJoinColumns = @JoinColumn(name = "geographicarea_id")
+            inverseJoinColumns = @JoinColumn(name = "region_id")
     )
     @OrderColumn(name = "name")
-    private Set<GeographicArea> geographicAreas = new HashSet<>();
+    private Set<Region> regions = new HashSet<>();
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,

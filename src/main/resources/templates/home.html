@@ -20,53 +20,73 @@
                 </div>
             </div>
             <!-- search criteria for filtering list of flies -->
-            <form id="searchForm" th:action="@{/search}" th:object="${searchForm}">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Filter Selections</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="panel-group">
-                            <div class="panel-heading">
-                                <h4>Stuff</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="row">
-                                    <label for="seasonsList">Choose Season:</label>
-                                    <div class="col-md-3">
-                                        <select class="select-picker" id="seasonsList" th:field="*{season}">
-                                            <option value="">Select</option>
-                                            <option th:each="season : ${seasonList}"
-                                                    th:value="${season.id}"
-                                                    th:text="${season.description}">Select</option>
-                                        </select>
-                                    </div>
+            <div class="panel panel-default">
+                <form id="searchForm" th:action="@{/}" th:object="${searchForm}" method="post">
+
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Filter Selections</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group">
+                                <div class="panel-heading">
+                                    <h4>Stuff</h4>
                                 </div>
-                                <div class="row">
-                                    <label for="seasonsList">Choose Fly Type:</label>
-                                    <div class="col-md-3">
-                                        <select class="select-picker" id="flyTypeList" th:field="*{flyType}">
-                                            <option value="">Select</option>
-                                            <option th:each="fly : ${flyTypeList}"
-                                                    th:value="${fly.id}"
-                                                    th:text="${fly.description}">Select</option>
-                                        </select>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="seasonsList" th:field="*{season}">
+                                                <option value="">Season</option>
+                                                <option th:each="season : ${seasonList}"
+                                                        th:value="${season.seasonId}"
+                                                        th:text="${season.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="flyTypeList" th:field="*{flyType}">
+                                                <option value="">Fly</option>
+                                                <option th:each="fly : ${flyTypeList}"
+                                                        th:value="${fly.flyTypeId}"
+                                                        th:text="${fly.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="stateList" th:field="*{state}">
+                                                <option value="">State</option>
+                                                <option th:each="state : ${stateList}"
+                                                        th:value="${state.abbreviation}"
+                                                        th:text="${state.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="regionList" th:field="*{region}">
+                                                <option value="">Region</option>
+                                                <option th:each="region : ${regionList}"
+                                                        th:value="${region.regionId}"
+                                                        th:text="${region.name}">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control selectpicker" id="riverList" th:field="*{river}">
+                                                <option value="">River</option>
+                                                <option th:each="river : ${riverList}"
+                                                        th:value="${river.riverId}"
+                                                        th:text="${river.name}">Select</option>
+                                            </select>
+                                        </div>
                                     </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
             <!-- search results -->
-            <div>
-                <div class="panel panel-default" th:unless="${#lists.isEmpty(fliesSearchResults)}">
-                    <div class="panel-heading">
-                        <h3>Flies</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div th:replace="base/fliesSearchResults :: pageLink_href ('/home')"></div>
-                    </div>
+            <div class="panel panel-default" th:unless="${#lists.isEmpty(fliesSearchResults)}">
+                <div class="panel-heading">
+                    <h3>Flies</h3>
+                </div>
+                <div class="panel-body">
+                    <div th:replace="base/fliesSearchResults :: searchResults"></div>
                 </div>
             </div>
         </div>

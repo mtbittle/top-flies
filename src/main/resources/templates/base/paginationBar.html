@@ -1,0 +1,11 @@
+<div th:fragment="paginationBar" xmlns:th="http://www.thymeleaf.org">
+    <div class="row">
+        <div class="pagination-table">
+            <ul class="pagination pagination-centered">
+                <li th:class="${fliesSearchResults.number eq 0} ? 'pageLink disabled' : 'pageLink'">
+                    <a class="paginationLink" th:if="${not searchResults.first} th:href="@{}"
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

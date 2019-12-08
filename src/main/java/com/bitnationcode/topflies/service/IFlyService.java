@@ -1,9 +1,13 @@
 package com.bitnationcode.topflies.service;
 
+import com.bitnationcode.topflies.controller.home.SearchForm;
 import com.bitnationcode.topflies.exceptions.ResourceNotFoundException;
 import com.bitnationcode.topflies.model.Fly;
 import com.bitnationcode.topflies.model.FlyType;
 import com.bitnationcode.topflies.repository.FlyIdAndName;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -30,4 +34,5 @@ public interface IFlyService {
     List<FlyIdAndName> getFlyIdAndNames();
 
     List<FlyType> getAllFlyTypes();
+    Page<Fly> findBySearchParams(SearchForm form, Pageable pageable);
 }

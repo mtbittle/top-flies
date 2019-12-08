@@ -22,6 +22,6 @@ public class SeasonService implements ISeasonService {
 
     @Override
     public List<Season> getAllSeasons() {
-        return seasonRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        return seasonRepository.findAll(Sort.by(Sort.Direction.ASC, "seasonId"));
     }
 }

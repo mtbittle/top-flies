@@ -28,8 +28,4 @@ public class State extends BaseModel implements IPersistent {
     @NotBlank
     @Column(name = "name", nullable = false, length = 100)
     private String name;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "countryId", nullable = false)
-    private Country country;
 }

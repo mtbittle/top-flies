@@ -21,17 +21,12 @@ public class StateService implements IStateService {
     }
 
     @Override
-    public List<State> findAllStates() {
+    public List<State> getAllStates() {
         return stateRepository.findAll(Sort.by(Sort.Direction.ASC, "abbreviation"));
     }
 
     @Override
     public State saveState(State state) {
         return stateRepository.save(state);
-    }
-
-    @Override
-    public List<State> findAllStatesByCountry(String countryAbbreviation) {
-        return stateRepository.findAllByCountryAbbreviation(countryAbbreviation, Sort.by(Sort.Direction.ASC, "abbreviation"));
     }
 }
